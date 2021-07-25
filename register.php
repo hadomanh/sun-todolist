@@ -1,3 +1,7 @@
+<?php 
+require_once('includes/initialize.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,17 +28,19 @@
             <div class="collapse navbar-collapse d-flex justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Login</a>
+                        <a class="nav-link" href="login.php">Login</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" href="register.html">Register</a>
+                        <a class="nav-link active" href="register.php">Register</a>
                     </li>
                 </ul>
             </div>
 
         </div>
     </nav>
+
+    <?php check_message(); ?>
 
     <div class="container d-flex justify-content-center">
         <div class="mt-3 bg-light p-5">
@@ -45,24 +51,24 @@
 
             </div>
             <h2 class="mb-3 text-center">Register</h2>
-            <form autocomplete="off">
+            <form autocomplete="off" action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="exampleInputName1" class="form-label">Fullname</label>
-                    <input type="email" class="form-control" id="exampleInputName1" aria-describedby="emailHelp">
+                    <label for="fullname" class="form-label">Fullname</label>
+                    <input type="text" name="fullname" class="form-control" id="fullname">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword2">
+                    <label for="password2" class="form-label">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
                 </div>
-                <button type="submit" style="width: 100%;" class="btn btn-primary">Submit</button>
+                <button type="submit" name="submitBtn" style="width: 100%;" class="btn btn-primary">Submit</button>
             </form>
         </div>
 
@@ -70,3 +76,16 @@
 </body>
 
 </html>
+
+<?php
+if (isset($_POST['submitBtn'])) {
+    $sql = "INSERT INTO users (`email`, `fullname`, `password`) VALUES ('".$_POST['email']."', '".$_POST['fullname']."', '".sha1($_POST['password'])."')";
+    $mydb->setQuery($sql);
+    if ($mydb->executeQuery()) {
+        message("User registered sucessfully. Please log in.", 'success');
+        redirect('login.php');
+    } else {
+        message($mydb->error_msg.'</br>'.$sql, 'info');
+        redirect('register.php');
+    }
+}
