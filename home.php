@@ -1,3 +1,7 @@
+<?php
+require_once('includes/initialize.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,11 +34,11 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link active text-light" aria-current="page" href="#">
-                            Good morning, Ha</a>
+                            Good morning, <?= $_SESSION['fullname'] ?></a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
+                        <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>

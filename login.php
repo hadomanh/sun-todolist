@@ -46,8 +46,7 @@ require_once('includes/initialize.php');
             <form autocomplete="off" action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
@@ -55,7 +54,7 @@ require_once('includes/initialize.php');
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" name="rememberMe" class="form-check-input" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                    <label class="form-check-label" for="rememberMe"> Remember me</label>
                 </div>
                 <button type="submit" name="submitBtn" style="width: 100%;" class="btn btn-primary">Login</button>
             </form>
@@ -68,17 +67,28 @@ require_once('includes/initialize.php');
 
 <?php
 if (isset($_POST['submitBtn'])) {
-    $h_pass = sha1($_POST['password']);
-    $sql = "SELECT * FROM `users` WHERE `email` = '". $email ."' and `password` = '". $h_pass ."'";
+    $sql = "SELECT * FROM `users` WHERE `email` = '" . $_POST['email'] . "'";
     $mydb->setQuery($sql);
     if ($mydb->executeQuery()) {
-        message("Logged in sucessfully. Please log in.", 'success');
-        $result = $mydb->loadSingleResult();
-        $_SESSION['email']      	= $result->email;
-        $_SESSION['fullname']      	= $$result->fullname;
-        redirect('home.php');
+        $row = $mydb->loadSingleResult();
+        if ($row)
+            if (password_verify($_POST['password'], $row->password)) {
+                message("Logged in sucessfully.", 'success');
+                $_SESSION['email']          = $row->email;
+                $_SESSION['fullname']          = $row->fullname;
+                if ($_POST['rememberMe'])
+                    setcookie("email", $_SESSION['email'], time()+3600*24*30, "/","", 0);
+                redirect('home.php');
+            } else {
+                message("Wrong password.", 'error');
+                redirect('login.php');
+            }
+        else {
+            message("Wrong email.", 'error');
+            redirect('login.php');
+        }
     } else {
-        message($mydb->error_msg.'</br>'.$sql, 'info');
+        message("Database error.", 'error');
         redirect('login.php');
     }
 }
