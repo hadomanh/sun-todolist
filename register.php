@@ -1,7 +1,3 @@
-<?php
-require_once('includes/initialize.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,35 +12,14 @@ require_once('includes/initialize.php');
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="https://static.appvn.com/a/uploads/thumbnails/042021/tasksd-todo-listd-task-listd-reminder_icon.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
-                Todo list
-            </a>
-
-            <div class="collapse navbar-collapse d-flex justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" href="register.php">Register</a>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-    </nav>
+    <?php require_once('navbar.php') ?>
 
     <?php check_message() ?>
 
     <div class="container d-flex justify-content-center">
-        <div class="mt-3 bg-light p-5">
+        <div class="mt-3 bg-light p-3">
             <div class="text-center">
-                <img style="width: 50%;" src="https://static.appvn.com/a/uploads/thumbnails/042021/tasksd-todo-listd-task-listd-reminder_icon.png" alt="">
-
+                <img style="width: 50%;" src="img/todo.png" alt="">
             </div>
             <h2 class="mb-3 text-center">Register</h2>
             <form autocomplete="off" action="" method="post" enctype="multipart/form-data">

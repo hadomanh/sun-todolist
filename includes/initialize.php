@@ -18,6 +18,13 @@ $server_root = str_replace('config/config.php', '', $this_file);
 define('web_root', $web_root);
 define('server_root', $server_root);
 
+$stati = [0 => 'Todo', 1 => 'In progress', 2 => 'Done'];
+$statusclass = [0 => 'text-danger', 1 => 'text-info', 2 => 'text-success'];
+
+require_once('database.php');
+session_start();
+checkCookiesForLogin();
+
 function checkCookiesForLogin() {
     if (isset($_COOKIE['loginInfo'])) {
         $temp = explode('<;>', $_COOKIE['loginInfo']);
@@ -59,6 +66,9 @@ function sqltodate($mysqldate) {
     return date('d/m/Y', strtotime($mysqldate));
 }
 
-require_once('database.php');
-session_start();
-checkCookiesForLogin();
+function getTodoes() {
+    global $mydb;
+    $sql = "SELECT * FROM `todo` WHERE `user` = '".$_SESSION['email']."'";
+    $mydb->setQuery($sql);
+    return $mydb->loadResultList();
+}
