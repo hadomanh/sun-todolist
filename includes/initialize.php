@@ -55,6 +55,10 @@ function check_message() {
     }
 }
 
+function sqltodate($mysqldate) {
+    return date('d/m/Y', strtotime($mysqldate));
+}
+
 require_once('database.php');
 session_start();
 checkCookiesForLogin();

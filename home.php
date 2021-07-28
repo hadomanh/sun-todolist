@@ -1,5 +1,10 @@
 <?php
 require_once('includes/initialize.php');
+$sql = "SELECT * FROM `todo` WHERE `user` = '".$_SESSION['email']."'";
+$mydb->setQuery($sql);
+$todoes = $mydb->loadResultList();
+$stati = [0 => 'Todo', 1 => 'In progress', 2 => 'Done'];
+$statusclass = [0 => 'text-danger', 1 => 'text-info', 2 => 'text-success'];
 ?>
 
 <!DOCTYPE html>
@@ -61,82 +66,37 @@ require_once('includes/initialize.php');
                         <th></th>
                     </tr>
 
-                    <tr>
-                        <td>1</td>
-                        <td>Learn MySQL</td>
-                        <td>SQL document in Drive</td>
-                        <td>20/07/2021</td>
-                        <td>20/07/2021</td>
-                        <td>22/07/2021</td>
-                        <td class="text-secondary">Done</td>
-                        <td>
-                            <div class="btnGroup btn-group">
-                                <div class="editBtn btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Edit
+                    <?php $i = 0; ?>
+                    <?php foreach ($todoes as $todo): ?>
+                        <?php $i++; ?>
+                        <tr>
+                            <td><?= $i ?></td>
+                            <td><?= $todo->title ?></td>
+                            <td><?= $todo->description ?></td>
+                            <td><?= sqltodate($todo->created_at) ?></td>
+                            <td><?= sqltodate($todo->updated_at) ?></td>
+                            <td><?= sqltodate($todo->deadline) ?></td>
+                            <td class=<?= $statusclass[$todo->status] ?>><?= $stati[$todo->status] ?></td>
+                            <td>
+                                <div class="btnGroup btn-group">
+                                    <div id= <?= "editBtn".$todo->id ?> class="editBtn btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Edit</div>
+                                    <div id= <?= "deleteBtn".$todo->id ?> class="deleteBtn btn btn-outline-danger"><i class="bi bi-archive"></i> Delete</div>
                                 </div>
-                                <div class="deleteBtn btn btn-outline-danger"><i class="bi bi-archive"></i> Delete</div>
-                            </div>
 
-                            <div style="display: none;" class="deleteConfirmBtnGroup btn-group">
-                                <div class="btn btn-outline-danger"><i class="bi bi-archive"></i> Delete permanently
+                                <div style="display: none;" class="deleteConfirmBtnGroup btn-group">
+                                    <div id= <?= "permaDeleteBtn".$todo->id ?> class="btn btn-outline-danger"><i class="bi bi-archive"></i> Delete permanently</div>
+                                    <div class="deleteCancelBtn btn btn-outline-secondary">Cancel</div>
                                 </div>
-                                <div class="deleteCancelBtn btn btn-outline-secondary">Cancel</div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Learn PHP</td>
-                        <td>Internet</td>
-                        <td>21/07/2021</td>
-                        <td>21/07/2021</td>
-                        <td>03/08/2021</td>
-                        <td class="text-danger">In progress</td>
-                        <td>
-                            <div class="btnGroup btn-group">
-                                <div class="editBtn btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Edit
-                                </div>
-                                <div class="deleteBtn btn btn-outline-danger"><i class="bi bi-archive"></i> Delete</div>
-                            </div>
-
-                            <div style="display: none;" class="deleteConfirmBtnGroup btn-group">
-                                <div class="btn btn-outline-danger"><i class="bi bi-archive"></i> Delete permanently
-                                </div>
-                                <div class="deleteCancelBtn btn btn-outline-secondary">Cancel</div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Learn Git</td>
-                        <td>Internet</td>
-                        <td>20/07/20121</td>
-                        <td>20/07/20121</td>
-                        <td>22/07/20121</td>
-                        <td class="text-warning">Todo</td>
-                        <td>
-                            <div class="btnGroup btn-group">
-                                <div class="editBtn btn btn-outline-warning"><i class="bi bi-pencil-square"></i> Edit
-                                </div>
-                                <div class="deleteBtn btn btn-outline-danger"><i class="bi bi-archive"></i> Delete</div>
-                            </div>
-
-                            <div style="display: none;" class="deleteConfirmBtnGroup btn-group">
-                                <div class="btn btn-outline-danger"><i class="bi bi-archive"></i> Delete permanently
-                                </div>
-                                <div class="deleteCancelBtn btn btn-outline-secondary">Cancel</div>
-                            </div>
-                        </td>
-                    </tr>
-
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </table>
+                
                 <div class="d-flex justify-content-center">
                     <div id="addBtn" class="btn btn-outline-primary" style="width: 30%;">
                         <i class="bi bi-plus-circle"></i> Add
                     </div>
                 </div>
-
             </div>
 
             <div id="addForm" style="display: none;" class="col-3">
