@@ -1,8 +1,8 @@
 <?php
-defined('server') ? null : define("server", "localhost");
-defined('user') ? null : define("user", "admin");
-defined('pass') ? null : define("pass", "admin");
-defined('database_name') ? null : define("database_name", "suntodo");
+defined('server') ? null : define("server", "35.240.221.137");
+defined('user') ? null : define("user", "test");
+defined('pass') ? null : define("pass", "123456");
+defined('database_name') ? null : define("database_name", "test");
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 defined('SITE_ROOT')
     ? null
@@ -18,7 +18,7 @@ $server_root = str_replace('config/config.php', '', $this_file);
 define('web_root', $web_root);
 define('server_root', $server_root);
 
-$stati = [0 => 'Todo', 1 => 'In progress', 2 => 'Done'];
+$statuses = [0 => 'Todo', 1 => 'In progress', 2 => 'Done'];
 $statusclass = [0 => 'text-danger', 1 => 'text-info', 2 => 'text-success'];
 
 require_once('database.php');
