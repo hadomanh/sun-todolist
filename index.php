@@ -11,5 +11,5 @@
             }
         }
     }
-    redirect((isset($_SESSION['fullname']) && $_SESSION['fullname'] != Null) ? 'home.php' : 'login.php');
+    redirect((isset($_SESSION['email']) && $_SESSION['email'] != Null) ? 'home.php' : 'login.php');
 ?>
