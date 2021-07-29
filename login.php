@@ -1,5 +1,6 @@
 <?php
-require_once('index.php');
+require_once('includes/initialize.php');
+if (isset($_SESSION['email']) && $_SESSION['email'] != Null) redirect('home.php');
 ?>
 
 <!DOCTYPE html>
