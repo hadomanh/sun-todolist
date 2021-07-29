@@ -1,3 +1,7 @@
+<?php
+require_once('index.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +15,7 @@
 </head>
 
 <body>
-    <?php require_once('navbar.php') ?>
+    <?php require_once('api/navbar.php') ?>
 
     <?php check_message() ?>
 
