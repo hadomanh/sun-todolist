@@ -45,20 +45,14 @@ function message($msg = "", $msgtype = "info") {
         $_SESSION['msgtype'] = $msgtype;
 }
 
-function check_message() {
+function showNotification() {
 
-    if (isset($_SESSION['message'])) {
-        if (isset($_SESSION['msgtype'])) {
-            if ($_SESSION['msgtype'] == "info") {
-                echo  '<div class="alert alert-info">' . $_SESSION['message'] . '</div>';
-            } elseif ($_SESSION['msgtype'] == "error") {
-                echo  '<div class="alert alert-danger">' . $_SESSION['message'] . '</div>';
-            } elseif ($_SESSION['msgtype'] == "success") {
-                echo  '<div class="alert alert-success">' . $_SESSION['message'] . '</div>';
-            }
-            unset($_SESSION['message']);
-            unset($_SESSION['msgtype']);
-        }
+    if (isset($_SESSION['message']) && isset($_SESSION['msgtype'])) {
+        echo  '<div class="alert alert-'. $_SESSION['msgtype'] .'">' . $_SESSION['message'] . '</div>';
+
+        unset($_SESSION['message']);
+        unset($_SESSION['msgtype']);
+        
     }
 }
 

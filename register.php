@@ -19,7 +19,7 @@ if (isset($_SESSION['email']) && $_SESSION['email'] != Null) redirect('home.php'
 
     <?php require_once('api/navbar.php') ?>
 
-    <?php check_message() ?>
+    <?php showNotification() ?>
 
     <div class="container d-flex justify-content-center">
         <div class="mt-3 bg-light p-3">

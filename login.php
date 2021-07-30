@@ -18,7 +18,7 @@ if (isset($_SESSION['email']) && $_SESSION['email'] != Null) redirect('home.php'
 <body>
     <?php require_once('api/navbar.php') ?>
 
-    <?php check_message() ?>
+    <?php showNotification() ?>
 
     <div class="container d-flex justify-content-center">
         <div class="mt-3 bg-light p-3">
@@ -63,15 +63,15 @@ if (isset($_POST['submitBtn'])) {
                     setcookie("email", $_SESSION['email'], time()+3600*24*30, "/","", 0);
                 redirect('home.php');
             } else {
-                message("Wrong password.", 'error');
+                message("Wrong password.", 'danger');
                 redirect('login.php');
             }
         else {
-            message("Wrong email.", 'error');
+            message("Wrong email.", 'danger');
             redirect('login.php');
         }
     } else {
-        message("Database error.", 'error');
+        message("Database error.", 'danger');
         redirect('login.php');
     }
 }
