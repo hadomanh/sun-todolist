@@ -21,6 +21,8 @@ if (isset($_SESSION['email']) && $_SESSION['email'] != Null) redirect('home.php'
 
     <?php check_message() ?>
 
+    <?php echo $_SERVER['REQUEST_URI'] ?>
+
     <div class="container d-flex justify-content-center">
         <div class="mt-3 bg-light p-3">
             <div class="text-center">
