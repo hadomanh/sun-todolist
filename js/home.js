@@ -23,10 +23,7 @@ function $(str) {
 };
 
 function getTodoIdFromButton(btn) {
-    let tr = btn;
-    while (tr.tagName.toLowerCase() != "tr")
-        tr = tr.parentElement;
-    return tr.id;
+    return btn.id.match(/(\d+)/)[0]
 }
 
 function addListenersToBtnGroup() {
@@ -36,10 +33,10 @@ function addListenersToBtnGroup() {
             functionRow.style.display = "none";
 
             editFormId = getTodoIdFromButton(editBtn);
-            $("editFormTitle").value = $(`title${getTodoIdFromButton(editBtn)}`).innerHTML;
-            $("editFormDescription").value = $(`desc${getTodoIdFromButton(editBtn)}`).innerHTML;
-            $("editFormDeadline").value = $(`deadline${getTodoIdFromButton(editBtn)}`).innerHTML.split('/').reverse().join('-');
-            $("editFormStatus").value = statuses.get($(`status${getTodoIdFromButton(editBtn)}`).innerHTML);
+            $("editFormTitle").value = $(`title${editFormId}`).innerHTML;
+            $("editFormDescription").value = $(`desc${editFormId}`).innerHTML;
+            $("editFormDeadline").value = $(`deadline${editFormId}`).innerHTML.split('/').reverse().join('-');
+            $("editFormStatus").value = statuses.get($(`status${editFormId}`).innerHTML);
     
             btnGroupArr.forEach((btnGroup) => {
                 btnGroup.style.display = "none";
