@@ -23,11 +23,20 @@ require_once('includes/initialize.php');
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">Login</a>
+                        <?php if (strpos($_SERVER['REQUEST_URI'], 'login') !== false): ?>
+                            <a class="nav-link active" href="login.php">Login</a>
+                        <?php else: ?>
+                            <a class="nav-link" href="login.php">Login</a>
+                        <?php endif; ?>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="register.php">Register</a>
+                        
+                        <?php if (strpos($_SERVER['REQUEST_URI'], 'register') !== false): ?>
+                            <a class="nav-link active" href="register.php">Register</a>
+                        <?php else: ?>
+                            <a class="nav-link" href="register.php">Register</a>
+                        <?php endif; ?>
                     </li>
                 <?php endif; ?>
             </ul>
