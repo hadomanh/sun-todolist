@@ -165,6 +165,10 @@ addFormSubmitBtn.addEventListener("click", () => {
             btnGroupArr.forEach((btnGroup) => btnGroup.style.display = "none");
             deleteConfirmBtnGroupArr.forEach((btnGroup) => btnGroup.style.display = "none");
             addListenersToBtnGroup();
+
+            $("addFormTitle").value = ''
+            $("addFormDescription").value = ''
+            $("addFormDeadline").value = ''
         }
     }
     let url = `api/addTodo.php?title=${addForm.title}&description=${addForm.description}&deadline=${addForm.deadline}`;
