@@ -40,7 +40,7 @@ function redirect($location = Null) {
         echo 'error location';
 }
 
-function message($msg = "", $msgtype = "info") {
+function setMessage($msg = "", $msgtype = "info") {
         $_SESSION['message'] = $msg;
         $_SESSION['msgtype'] = $msgtype;
 }

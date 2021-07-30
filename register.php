@@ -64,10 +64,10 @@ if (isset($_POST['submitBtn'])) {
     $sql = "INSERT INTO users (`email`, `fullname`, `password`) VALUES ('" . $_POST['email'] . "', '" . $_POST['fullname'] . "', '" . password_hash($_POST['password1'], PASSWORD_DEFAULT) . "')";
     $mydb->setQuery($sql);
     if ($mydb->executeQuery()) {
-        message("User registered sucessfully. Please log in.", 'success');
+        setMessage("User registered sucessfully. Please log in.", 'success');
         redirect('login.php');
     } else {
-        message($mydb->error_msg . '</br>' . $sql, 'info');
+        setMessage($mydb->error_msg . '</br>' . $sql, 'info');
         redirect('register.php');
     }
 }

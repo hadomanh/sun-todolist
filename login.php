@@ -56,22 +56,22 @@ if (isset($_POST['submitBtn'])) {
         $row = $mydb->loadSingleResult();
         if ($row)
             if (password_verify($_POST['password'], $row->password)) {
-                message("Logged in sucessfully.", 'success');
+                setMessage("Logged in sucessfully.", 'success');
                 $_SESSION['email']          = $row->email;
                 $_SESSION['fullname']          = $row->fullname;
                 if ($_POST['rememberMe'])
                     setcookie("email", $_SESSION['email'], time()+3600*24*30, "/","", 0);
                 redirect('home.php');
             } else {
-                message("Wrong password.", 'danger');
+                setMessage("Wrong password.", 'danger');
                 redirect('login.php');
             }
         else {
-            message("Wrong email.", 'danger');
+            setMessage("Wrong email.", 'danger');
             redirect('login.php');
         }
     } else {
-        message("Database error.", 'danger');
+        setMessage("Database error.", 'danger');
         redirect('login.php');
     }
 }
